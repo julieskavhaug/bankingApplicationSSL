@@ -12,17 +12,14 @@ app.use(bodyParser.json());
 
 //Import Routes
 const accountRoute = require('./routes/accounts');
+const clientRoute = require('./routes/clients');
 
 //const { db } = require('./models/account');
 app.use('/accounts', accountRoute);
-
-//Initial route
-app.get('/', (req, res) => {
-    res.send('Welcome to the banking app');
-});
+app.use('/clients', clientRoute);
 
 app.use('/', (req, res) => {
-    res.json("Hey");
+    res.json("This is the banking app");
 });
 
 const sslServer = https.createServer({
