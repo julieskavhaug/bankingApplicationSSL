@@ -72,5 +72,13 @@ router.put('/:id', async (req, res) => {
     res.json(accounts);
 });
 
+//delete an account with the specific ID
+router.delete('/:id', async (req, res) => {
+
+    let Delete = req.body;
+    let accounts = await Account.findByIdAndDelete(req.params.id, {$set: Delete});
+    res.json(accounts);
+});
+
 
 module.exports = router;

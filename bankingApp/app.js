@@ -6,6 +6,8 @@ const db = require('./db/db.js');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
+const seaConnect = require('seaport');
+const seaPortConnect = seaConnect.connect('localhost', 9090);
 
 //Added Json Body-parser
 app.use(bodyParser.json());
@@ -27,9 +29,10 @@ const sslServer = https.createServer({
     cert: fs.readFileSync(path.join(__dirname, './SSL/cert', 'cert.pem'))
 }, app);
 
-//start listening
-sslServer.listen(3443, () => {
+//connect the http server to seaport and mongodb.
+sslServer.listen(seaPortConnect.register('server'), () => {
     db.getConnection().then(function(){
         console.log("you are connected to db")});
-    console.log('Server listening on 3443');
+        console.log('Server listening on 3443');
+        console.log("Port: " + sslServer.address().port);
 });
