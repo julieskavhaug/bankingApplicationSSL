@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const db = require('./db/db.js');
 const https = require('https');
@@ -26,13 +25,14 @@ app.use('/', (req, res) => {
 
 const sslServer = https.createServer({
     key: fs.readFileSync(path.join(__dirname, './SSL/cert', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, './SSL/cert', 'cert.pem'))
+    cert: fs.readFileSync(path.join(__dirname, './SSL/cert', 'cert.pem')),
+    secure: false
 }, app);
 
 //connect the http server to seaport and mongodb.
 sslServer.listen(seaPortConnect.register('server'), () => {
     db.getConnection().then(function(){
         console.log("you are connected to db")});
-        console.log('Server listening on 3443');
-        console.log("Port: " + sslServer.address().port);
+        console.log('Server listening on 8080');
+        console.log("On port: " + sslServer.address().port);
 });

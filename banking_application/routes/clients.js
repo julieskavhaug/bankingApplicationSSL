@@ -29,19 +29,13 @@ router.post('/', async (req, res) => {
 // Implement a new endpoint, that will be able to return a specific account by id.
 // instead of just printing, return the actual account.
 router.get('/:id', async (req,res) =>{
-
-
         let client = await Client.findById(req.params.id);
         console.log(client);
-
     try {
-       await  res.json(client);
-
-
+       await res.json(client);
     }catch(e) {
         console.log({message: e})
     }
-
 });
 
 

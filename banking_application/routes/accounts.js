@@ -13,17 +13,17 @@ router.get('/', async (req, res) => {
     }
 });
 
-
 //endpoint for getting the balance of one account. Remember this is from accounts/
 router.get('/:id', async (req, res) => {
-    try{
-        const accounts = await Account.findById(req.params.id).exec();
-        res.json('Balance of account with id: ' + accounts.id + ', Balance: ' + accounts.balance);
-    }
-    catch(err){
-        console.log({message: err})
+    let account = await Account.findById(req.params.id);
+    console.log(account);
+    try {
+        await res.json(account);
+    }catch(e) {
+        console.log({message: e})
     }
 });
+
 
 //return the balance of the account with a specific ID
 router.get('/:id/balance', async (req, res) => {
@@ -56,8 +56,8 @@ router.put('/transfer', async(req,res) =>{
     let fromBalance = fromAccount.balance - amount;
     let toBalance = toAccount.balance + amount;
 
-    let newFromBalance = await Account.findByIdAndUpdate(fromAccount.id, {"balance": fromBalance});
-    let newToBalance = await Account.findByIdAndUpdate(toAccount.id, {"balance": toBalance});
+    await Account.findByIdAndUpdate(fromAccount.id, {"balance": fromBalance});
+    await Account.findByIdAndUpdate(toAccount.id, {"balance": toBalance});
 
     res.json(amount);
 });
