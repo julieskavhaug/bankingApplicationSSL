@@ -29,7 +29,7 @@ const sslServer = https.createServer({
     secure: false
 }, app);
 
-//connect the http server to seaport and mongodb.
+//connect the https server to seaport and mongodb.
 sslServer.listen(seaPortConnect.register('server'), () => {
     db.getConnection().then(function(){
         console.log("you are connected to db")});

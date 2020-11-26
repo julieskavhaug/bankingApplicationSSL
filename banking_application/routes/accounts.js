@@ -30,6 +30,7 @@ router.get('/:id/balance', async (req, res) => {
     try{
         const accounts = await Account.findById(req.params.id).exec();
         res.json('Balance: ' + accounts.balance);
+        console.log('Balance')
     }
     catch(err){
         console.log({message: err})
@@ -47,6 +48,8 @@ router.post('/', async (req, res) => {
     res.json(account);
 });
 
+
+//endpoint for transferring money
 router.put('/transfer', async(req,res) =>{
 
     let fromAccount = await Account.findById(req.body.fromAccount);
@@ -71,6 +74,7 @@ router.put('/:id', async (req, res) => {
 
     res.json(accounts);
 });
+
 
 //delete an account with the specific ID
 router.delete('/:id', async (req, res) => {

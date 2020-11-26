@@ -8,7 +8,7 @@ const should = chai.should();
 const chaiHttp = require("chai-http");
 const { expect } = require("chai");
 chai.use(chaiHttp);
-const baseUrl = "https://localhost:8080"
+const baseUrl = "https://localhost:8080";
 
 // connecto to db
 let connection = mongoose.connect('mongodb://localhost/bankingSystem', {

@@ -3,7 +3,10 @@ const mongoose = require('mongoose');
 // 3. Finish the account schema
 const AccountSchema = new mongoose.Schema({
 
-    balance: Number,
+    balance: {
+        type: Number,
+        required: false,
+    },
     alias: String,
     client_id: {
         type: String,
