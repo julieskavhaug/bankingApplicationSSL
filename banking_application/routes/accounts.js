@@ -6,7 +6,7 @@ const Account = require('../models/account');
 router.get('/', async (req, res) => {
     try {
         const accounts = await Account.find().exec();
-        // 1. return accounts from database instead
+        // 1. return accounts from database
         res.json(accounts);
     } catch (err) {
         console.log({message: err})
@@ -56,13 +56,20 @@ router.put('/transfer', async(req,res) =>{
     let toAccount = await Account.findById(req.body.toAccount);
     let amount = await req.body.amount;
 
-    let fromBalance = fromAccount.balance - amount;
-    let toBalance = toAccount.balance + amount;
+    if(fromAccount.balance < amount){
+        res.sendStatus(403);
+        return 0;
+    }
 
-    await Account.findByIdAndUpdate(fromAccount.id, {"balance": fromBalance});
-    await Account.findByIdAndUpdate(toAccount.id, {"balance": toBalance});
+    else {
+        let fromBalance = fromAccount.balance - amount;
+        let toBalance = toAccount.balance + amount;
 
-    res.json(amount);
+         await Account.findByIdAndUpdate(fromAccount.id, {"balance": fromBalance});
+         await Account.findByIdAndUpdate(toAccount.id, {"balance": toBalance});
+
+         res.json(amount);
+    }
 });
 
 
