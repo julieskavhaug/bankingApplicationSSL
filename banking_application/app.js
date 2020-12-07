@@ -20,7 +20,7 @@ app.use('/accounts', accountRoute);
 app.use('/clients', clientRoute);
 
 app.use('/', (req, res) => {
-    res.json("This is the banking app");
+    res.json("Welcome to Julies banking app");
 });
 
 const sslServer = https.createServer({
@@ -33,6 +33,5 @@ const sslServer = https.createServer({
 sslServer.listen(seaPortConnect.register('server'), () => {
     db.getConnection().then(function(){
         console.log("you are connected to db")});
-        console.log('Server listening on 8080');
-        console.log("On port: " + sslServer.address().port);
+        console.log("Server listening on port: " + sslServer.address().port);
 });

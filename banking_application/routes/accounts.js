@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Account = require('../models/account');
 
-//Endpoint for all users
+//Endpoint for all accounts
 router.get('/', async (req, res) => {
     try {
         const accounts = await Account.find().exec();
